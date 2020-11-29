@@ -6,7 +6,7 @@ from django.test import TestCase
 from rest_framework import status
 from rest_framework.test import APIClient
 
-from core.models import Tag
+from core.models.tag import Tag
 from my_blog.serializers import TagSerializer
 
 TAGS_URL = reverse('my_blog:tag-list')
@@ -22,7 +22,7 @@ class PublicTagApiTest(TestCase):
         """Test that login is required for retrieving tags"""
         res = self.client.get(TAGS_URL)
 
-        self.assertEqual(res.status_code, status.HTTP_403_FORBIDDEN)
+        self.assertEqual(res.status_code, status.HTTP_401_UNAUTHORIZED)
 
 
 class PrivateTagsApiTests(TestCase):
