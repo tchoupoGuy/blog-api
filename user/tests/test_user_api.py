@@ -8,6 +8,7 @@ from rest_framework import status
 
 CREATE_USER_URL = reverse('user:create')
 TOKEN_URL = reverse('user:token')
+LOGIN_URL = reverse('user:login')
 ME_URL = reverse('user:me')
 
 
@@ -34,6 +35,15 @@ class PublicUserApiTests(TestCase):
         user = get_user_model().objects.get(**res.data)
         self.assertTrue(user.check_password(payload['password']))
         self.assertNotIn('password', res.data)
+
+    def test_login_user(self):
+        """test login with valid payload """
+        payload = {
+            'email': 'test@guyblog.com',
+            'password': 'testpass',
+        }
+        res = self.client(LOGIN_URL, payload)
+        self.assertEqual(res.status_code, status.HTTP_202_ACCEPTED)
 
     def test_user_exists(self):
         """Test creating a user that already exists fails"""
