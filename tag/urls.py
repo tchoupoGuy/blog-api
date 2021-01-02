@@ -7,7 +7,7 @@ from tag import views
 router = DefaultRouter()
 router.register('tags', views.TagViewSet)
 
-app_name = 'my_blog'
+app_name = 'tag'
 
 urlpatterns = [
     path('', include(router.urls))
