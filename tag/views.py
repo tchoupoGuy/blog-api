@@ -4,7 +4,7 @@ from rest_framework.permissions import IsAuthenticated
 
 from core.models import Tag
 
-from my_blog import serializers
+from tag import serializers
 
 
 class TagViewSet(viewsets.GenericViewSet, mixins.ListModelMixin, mixins.CreateModelMixin):

@@ -1,7 +1,7 @@
 from django.urls import path, include
 from rest_framework.routers import DefaultRouter
 
-from my_blog import views
+from tag import views
 
 
 router = DefaultRouter()
