@@ -1,8 +1,11 @@
 from rest_framework import generics, authentication, permissions
 from rest_framework.authtoken.views import ObtainAuthToken
 from rest_framework.settings import api_settings
+from rest_framework_simplejwt.views import TokenObtainPairView
+from rest_framework import permissions
 
-from user.serializers import UserSerializer, AuthTokenSerializer
+
+from user.serializers import MyTokenObtainPairSerializer, UserSerializer, AuthTokenSerializer
 
 
 class CreateUserView(generics.CreateAPIView):
@@ -30,3 +33,8 @@ class ManageUserView(generics.RetrieveUpdateAPIView):
 class ConstumLoginView(generics.GenericAPIView):
     """login user with credential"""
     serializer_class = AuthTokenSerializer
+
+
+class ObtainTokenPairWithUserView(TokenObtainPairView):
+    permission_classes = (permissions.AllowAny,)
+    serializer_class = MyTokenObtainPairSerializer

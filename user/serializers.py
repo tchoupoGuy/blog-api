@@ -2,6 +2,7 @@ from django.contrib.auth import get_user_model, authenticate
 
 from rest_framework import serializers
 from django.utils.translation import ugettext_lazy as _
+from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
 
 
 class UserSerializer(serializers.ModelSerializer):
@@ -51,3 +52,16 @@ class AuthTokenSerializer(serializers.Serializer):
 
         attrs['user'] = user
         return attrs
+
+
+class MyTokenObtainPairSerializer(TokenObtainPairSerializer):
+
+    @classmethod
+    def get_token(cls, user):
+
+        token = super(MyTokenObtainPairSerializer, cls).get_token(user)
+
+        # Add custom claims
+        token['email'] = user.email
+        token['password'] = user.password
+        return token
